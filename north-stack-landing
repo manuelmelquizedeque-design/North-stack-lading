@@ -5,1058 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>North Stack | Content Growth Systems</title>
     <meta name="description" content="Transformamos o seu conteúdo em um sistema previsível de aquisição de clientes. Estratégia, repurposing e distribuição inteligente.">
-    
-    <!-- Preconnect para performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #0a0a0a;
-            --secondary: #1a1a1a;
-            --accent: #00d4ff;
-            --accent-dark: #00a8cc;
-            --text: #ffffff;
-            --text-muted: #888888;
-            --border: #2a2a2a;
-            --success: #00ff88;
-            --warning: #ffaa00;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--primary);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        /* Language Toggle */
-        .lang-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 5px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-
-        .lang-btn.active {
-            background: var(--accent);
-            color: var(--primary);
-        }
-
-        .lang-btn:hover:not(.active) {
-            color: var(--text);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, transparent 100%);
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo::before {
-            content: '◆';
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 5% 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            color: var(--accent);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero h1 span {
-            color: var(--accent);
-            -webkit-text-fill-color: var(--accent);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--primary);
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 2px solid var(--accent);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            font-family: inherit;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text);
-            padding: 18px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            border: 2px solid var(--border);
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .social-proof {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            opacity: 0.8;
-        }
-
-        .avatars {
-            display: flex;
-            margin-right: 10px;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            margin-left: -10px;
-            background: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .avatar:first-child {
-            margin-left: 0;
-        }
-
-        /* Problem Section */
-        .section {
-            padding: 100px 5%;
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-tag {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .problem-card {
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 20px;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .problem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), transparent);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .problem-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .problem-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-
-        .problem-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        .problem-card p {
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Solution Section */
-        .solution {
-            background: var(--secondary);
-            position: relative;
-        }
-
-        .solution::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .solution-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .solution-visual {
-            position: relative;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(0,0,0,0) 100%);
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .stack-visual {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 80%;
-        }
-
-        .stack-item {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transform: translateX(0);
-            transition: transform 0.3s;
-            animation: slideIn 0.5s ease-out forwards;
-            opacity: 0;
-        }
-
-        .stack-item:nth-child(1) { animation-delay: 0.1s; }
-        .stack-item:nth-child(2) { animation-delay: 0.2s; }
-        .stack-item:nth-child(3) { animation-delay: 0.3s; }
-        .stack-item:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .stack-item:hover {
-            transform: translateX(10px);
-            background: rgba(0, 212, 255, 0.2);
-        }
-
-        .stack-number {
-            background: var(--accent);
-            color: var(--primary);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .solution-text h2 {
-            font-size: clamp(2rem, 3vw, 2.5rem);
-            margin-bottom: 24px;
-            line-height: 1.2;
-        }
-
-        .solution-text h2 span {
-            color: var(--accent);
-        }
-
-        .solution-list {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        .solution-list li {
-            padding: 15px 0;
-            padding-left: 35px;
-            position: relative;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .solution-list li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .highlight-box {
-            background: rgba(0, 212, 255, 0.1);
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 0 12px 12px 0;
-        }
-
-        .highlight-box strong {
-            color: var(--accent);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        /* How it Works */
-        .process {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .process-step {
-            text-align: center;
-            padding: 30px;
-            position: relative;
-        }
-
-        .process-step::after {
-            content: '';
-            position: absolute;
-            top: 50px;
-            right: -30px;
-            width: 60px;
-            height: 2px;
-            background: var(--border);
-            display: none;
-        }
-
-        .process-step:not(:last-child)::after {
-            display: block;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: var(--secondary);
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin: 0 auto 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .process-step h4 {
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .process-step p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Offer Section */
-        .offer {
-            background: linear-gradient(135deg, rgba(0,212,255,0.05) 0%, transparent 100%);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .offer-card {
-            background: var(--secondary);
-            border: 2px solid var(--accent);
-            border-radius: 30px;
-            padding: 60px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .offer-badge {
-            position: absolute;
-            top: 20px;
-            right: -35px;
-            background: var(--accent);
-            color: var(--primary);
-            padding: 10px 40px;
-            transform: rotate(45deg);
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .offer h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .offer-subtitle {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-        }
-
-        .offer-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            text-align: left;
-            margin: 40px 0;
-        }
-
-        .offer-feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px;
-            background: rgba(0, 212, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .check {
-            color: var(--success);
-            font-weight: bold;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .offer-feature span {
-            font-weight: 500;
-        }
-
-        .guarantee {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-align: left;
-        }
-
-        .guarantee-icon {
-            font-size: 3rem;
-            flex-shrink: 0;
-        }
-
-        .guarantee-text h4 {
-            color: var(--success);
-            margin-bottom: 5px;
-        }
-
-        .guarantee-text p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Pricing */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .pricing-card {
-            background: var(--secondary);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-card.featured {
-            border-color: var(--accent);
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
-        }
-
-        .pricing-card.featured::before {
-            content: 'Mais Popular';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: var(--primary);
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .pricing-name {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .pricing-desc {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .pricing-price span {
-            font-size: 1rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .pricing-original {
-            text-decoration: line-through;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
-
-        .pricing-features li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: var(--secondary);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta-section h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-        }
-
-        .cta-large {
-            font-size: 1.2rem;
-            padding: 24px 60px;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary);
-            border-top: 1px solid var(--border);
-            padding: 60px 5% 30px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-
-        .footer-tagline {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .copyright {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .solution-content {
-                grid-template-columns: 1fr;
-            }
-
-            .solution-visual {
-                height: 400px;
-                order: -1;
-            }
-
-            .process-step::after {
-                display: none !important;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-
-            .pricing-card.featured:hover {
-                transform: scale(1) translateY(-10px);
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .offer-card {
-                padding: 40px 20px;
-            }
-
-            .guarantee {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .offer-badge {
-                right: -40px;
-                top: 15px;
-                font-size: 0.8rem;
-                padding: 8px 30px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .lang-toggle {
-                top: 10px;
-                right: 10px;
-            }
-
-            .hero {
-                padding: 100px 5% 60px;
-            }
-
-            .section {
-                padding: 60px 5%;
-            }
-
-            .cta-group {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .offer-features {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* English content hidden by default */
-        .lang-en {
-            display: none;
-        }
-
-        body[data-lang="en"] .lang-pt {
-            display: none;
-        }
-
-        body[data-lang="en"] .lang-en {
-            display: block;
-        }
-
-        body[data-lang="en"] .lang-en-inline {
-            display: inline;
-        }
-
-        body[data-lang="en"] .lang-pt-inline {
-            display: none;
-        }
-
-        .lang-en-inline {
-            display: none;
-        }
-
-        /* Utility */
-        .text-center { text-align: center; }
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-
-        /* Print styles */
-        @media print {
-            .lang-toggle, nav, .btn-primary, .btn-secondary { 
-                display: none !important; 
-            }
-            body { 
-                background: white; 
-                color: black; 
-            }
-        }
+        :root{--primary:#0a0a0a;--secondary:#1a1a1a;--accent:#00d4ff;--text:#ffffff;--text-muted:#888888;--border:#2a2a2a;--success:#00ff88}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--primary);color:var(--text);line-height:1.6;overflow-x:hidden}
+        h1,h2,h3,h4{font-family:'Segoe UI',Roboto,sans-serif;font-weight:700;letter-spacing:-0.02em}
+        .lang-toggle{position:fixed;top:20px;right:20px;z-index:1000;background:rgba(26,26,26,0.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:50px;padding:5px;display:flex;gap:5px}
+        .lang-btn{background:transparent;border:none;color:var(--text-muted);padding:8px 16px;border-radius:25px;cursor:pointer;font-weight:600;transition:all 0.3s;font-size:0.9rem}
+        .lang-btn.active{background:var(--accent);color:var(--primary)}
+        nav{position:fixed;top:0;left:0;right:0;padding:20px 5%;display:flex;justify-content:space-between;align-items:center;z-index:999;background:linear-gradient(to bottom,rgba(10,10,10,0.9) 0%,transparent 100%)}
+        nav.scrolled{background:rgba(10,10,10,0.95);backdrop-filter:blur(10px)}
+        .logo{font-size:1.5rem;font-weight:700;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
+        .logo::before{content:'◆';color:var(--accent)}
+        .nav-links{display:flex;gap:30px;list-style:none}
+        .nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.3s}
+        .nav-links a:hover{color:var(--accent)}
+        .mobile-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 5% 80px;position:relative;overflow:hidden}
+        .hero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,rgba(0,212,255,0.1) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(0,212,255,0.05) 0%,transparent 50%);z-index:0}
+        .hero-content{max-width:900px;text-align:center;position:relative;z-index:1}
+        .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);padding:8px 16px;border-radius:50px;font-size:0.85rem;font-weight:600;margin-bottom:30px;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,0.4)}50%{box-shadow:0 0 0 10px rgba(0,212,255,0)}}
+        .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);line-height:1.1;margin-bottom:24px;background:linear-gradient(135deg,#fff 0%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero h1 span{color:var(--accent);-webkit-text-fill-color:var(--accent)}
+        .hero-subtitle{font-size:clamp(1.1rem,2vw,1.4rem);color:var(--text-muted);max-width:600px;margin:0 auto 40px}
+        .cta-group{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+        .btn-primary{background:var(--accent);color:var(--primary);padding:18px 40px;border-radius:50px;text-decoration:none;font-weight:700;font-size:1rem;transition:all 0.3s;display:inline-flex;align-items:center;gap:10px;border:2px solid var(--accent);cursor:pointer;position:relative;overflow:hidden}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,212,255,0.3)}
+        .btn-secondary{background:transparent;color:var(--text);padding:18px 40px;border-radius:50px;text-decoration:none;font-weight:600;font-size:1rem;transition:all 0.3s;border:2px solid var(--border);cursor:pointer}
+        .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+        .social-proof{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;opacity:0.8}
+        .avatars{display:flex;margin-right:10px}
+        .avatar{width:40px;height:40px;border-radius:50%;border:2px solid var(--primary);margin-left:-10px;background:var(--secondary);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600}
+        .avatar:first-child{margin-left:0}
+        .section{padding:100px 5%;position:relative}
+        .container{max-width:1200px;margin:0 auto}
+        .section-header{text-align:center;margin-bottom:80px}
+        .section-tag{color:var(--accent);font-weight:600;font-size:0.9rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;display:block}
+        .section-title{font-size:clamp(2rem,4vw,3rem);margin-bottom:20px}
+        .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+        .problem-card{background:var(--secondary);border:1px solid var(--border);padding:40px;border-radius:20px;transition:all 0.3s}
+        .problem-card:hover{transform:translateY(-5px);border-color:var(--accent)}
+        .problem-icon{font-size:2.5rem;margin-bottom:20px}
+        .problem-card h3{font-size:1.3rem;margin-bottom:12px}
+        .problem-card p{color:var(--text-muted)}
+        .solution{background:var(--secondary)}
+        .solution-content{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+        .solution-visual{position:relative;height:500px;background:linear-gradient(135deg,rgba(0,212,255,0.1) 0%,transparent 100%);border-radius:30px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
+        .stack-visual{display:flex;flex-direction:column;gap:15px;width:80%}
+        .stack-item{background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);padding:20px;border-radius:12px;display:flex;align-items:center;gap:15px;transition:transform 0.3s}
+        .stack-item:hover{transform:translateX(10px);background:rgba(0,212,255,0.2)}
+        .stack-number{background:var(--accent);color:var(--primary);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0}
+        .solution-text h2{font-size:clamp(2rem,3vw,2.5rem);margin-bottom:24px}
+        .solution-text h2 span{color:var(--accent)}
+        .solution-list{list-style:none;margin:30px 0}
+        .solution-list li{padding:15px 0;padding-left:35px;position:relative;color:var(--text-muted);border-bottom:1px solid var(--border)}
+        .solution-list li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:bold}
+        .highlight-box{background:rgba(0,212,255,0.1);border-left:4px solid var(--accent);padding:20px;margin-top:30px;border-radius:0 12px 12px 0}
+        .highlight-box strong{color:var(--accent);display:block;margin-bottom:5px}
+        .process{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;margin-top:60px}
+        .process-step{text-align:center;padding:30px;position:relative}
+        .step-number{width:60px;height:60px;background:var(--secondary);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:var(--accent);margin:0 auto 20px}
+        .process-step h4{margin-bottom:10px;font-size:1.2rem}
+        .process-step p{color:var(--text-muted);font-size:0.95rem}
+        .offer{background:linear-gradient(135deg,rgba(0,212,255,0.05) 0%,transparent 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+        .offer-card{background:var(--secondary);border:2px solid var(--accent);border-radius:30px;padding:60px;max-width:800px;margin:0 auto;text-align:center;position:relative;overflow:hidden}
+        .offer-badge{position:absolute;top:20px;right:-35px;background:var(--accent);color:var(--primary);padding:10px 40px;transform:rotate(45deg);font-weight:700;font-size:0.9rem}
+        .offer h2{font-size:2.5rem;margin-bottom:20px}
+        .offer-subtitle{color:var(--text-muted);margin-bottom:40px;font-size:1.1rem}
+        .offer-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:left;margin:40px 0}
+        .offer-feature{display:flex;align-items:center;gap:12px;padding:15px;background:rgba(0,212,255,0.05);border-radius:10px}
+        .check{color:var(--success);font-weight:bold;font-size:1.2rem;flex-shrink:0}
+        .offer-feature span{font-weight:500}
+        .guarantee{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:15px;padding:30px;margin-top:40px;display:flex;align-items:center;gap:20px;text-align:left}
+        .guarantee-icon{font-size:3rem;flex-shrink:0}
+        .guarantee-text h4{color:var(--success);margin-bottom:5px}
+        .guarantee-text p{color:var(--text-muted);font-size:0.95rem}
+        .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:60px}
+        .pricing-card{background:var(--secondary);border:1px solid var(--border);border-radius:20px;padding:40px;position:relative;transition:all 0.3s;display:flex;flex-direction:column}
+        .pricing-card.featured{border-color:var(--accent);transform:scale(1.05);box-shadow:0 20px 40px rgba(0,212,255,0.1)}
+        .pricing-card.featured::before{content:'Mais Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--primary);padding:5px 20px;border-radius:20px;font-size:0.8rem;font-weight:700}
+        .pricing-card:hover{transform:translateY(-10px);border-color:var(--accent)}
+        .pricing-card.featured:hover{transform:scale(1.05) translateY(-10px)}
+        .pricing-name{font-size:1.5rem;margin-bottom:10px}
+        .pricing-desc{color:var(--text-muted);margin-bottom:30px;font-size:0.95rem}
+        .pricing-price{font-size:3rem;font-weight:700;margin-bottom:10px}
+        .pricing-price span{font-size:1rem;color:var(--text-muted);font-weight:400}
+        .pricing-original{text-decoration:line-through;color:var(--text-muted);margin-bottom:30px;font-size:0.9rem}
+        .pricing-features{list-style:none;margin-bottom:30px;flex-grow:1}
+        .pricing-features li{padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+        .pricing-features li::before{content:'✓';color:var(--accent);font-weight:bold}
+        .cta-section{background:var(--secondary);text-align:center;position:relative;overflow:hidden}
+        .cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(0,212,255,0.1) 0%,transparent 70%);pointer-events:none}
+        .cta-content{position:relative;z-index:1;max-width:700px;margin:0 auto}
+        .cta-section h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:20px}
+        .cta-section p{color:var(--text-muted);margin-bottom:40px;font-size:1.2rem}
+        .cta-large{font-size:1.2rem;padding:24px 60px}
+        footer{background:var(--primary);border-top:1px solid var(--border);padding:60px 5% 30px;text-align:center}
+        .footer-content{max-width:600px;margin:0 auto}
+        .footer-logo{font-size:1.8rem;font-weight:700;margin-bottom:20px}
+        .footer-tagline{color:var(--text-muted);margin-bottom:30px}
+        .footer-links{display:flex;justify-content:center;gap:30px;margin-bottom:40px;flex-wrap:wrap}
+        .footer-links a{color:var(--text-muted);text-decoration:none;transition:color 0.3s}
+        .footer-links a:hover{color:var(--accent)}
+        .copyright{color:var(--text-muted);font-size:0.9rem;padding-top:30px;border-top:1px solid var(--border)}
+        .lang-en{display:none}
+        body[data-lang="en"] .lang-pt{display:none}
+        body[data-lang="en"] .lang-en{display:block}
+        .fade-in{opacity:0;transform:translateY(30px);transition:all 0.8s ease-out}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+        @media(max-width:968px){.solution-content{grid-template-columns:1fr}.solution-visual{height:400px;order:-1}.pricing-card.featured{transform:scale(1)}.pricing-card.featured:hover{transform:scale(1) translateY(-10px)}.nav-links{display:none}.mobile-menu-btn{display:block}.offer-card{padding:40px 20px}.guarantee{flex-direction:column;text-align:center}}
+        @media(max-width:480px){.lang-toggle{top:10px;right:10px}.hero{padding:100px 5% 60px}.section{padding:60px 5%}.cta-group{flex-direction:column;width:100%}.btn-primary,.btn-secondary{width:100%;justify-content:center}.pricing-grid{grid-template-columns:1fr}.offer-features{grid-template-columns:1fr}}
     </style>
 </head>
 <body data-lang="pt">
-
-    <!-- Language Toggle -->
     <div class="lang-toggle">
-        <button class="lang-btn active" onclick="setLanguage('pt')" aria-label="Português">PT</button>
-        <button class="lang-btn" onclick="setLanguage('en')" aria-label="English">EN</button>
+        <button class="lang-btn active" onclick="setLanguage('pt')">PT</button>
+        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
     </div>
-
-    <!-- Navigation -->
     <nav id="navbar">
         <a href="#" class="logo">North Stack</a>
         <ul class="nav-links">
@@ -1066,10 +133,8 @@
             <li><a href="#oferta" class="lang-pt">Oferta</a><a href="#oferta" class="lang-en">Offer</a></li>
             <li><a href="#precos" class="lang-pt">Preços</a><a href="#precos" class="lang-en">Pricing</a></li>
         </ul>
-        <button class="mobile-menu-btn" aria-label="Menu">☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
     </nav>
-
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -1078,46 +143,28 @@
                 <span class="lang-pt">Sistema Exclusivo para Criadores em Portugal</span>
                 <span class="lang-en">Exclusive System for Portuguese Creators</span>
             </div>
-            
-            <h1 class="lang-pt">
-                Transformamos o seu conteúdo em um <span>sistema previsível</span> de aquisição de clientes.
-            </h1>
-            <h1 class="lang-en">
-                We transform your content into a <span>predictable system</span> for client acquisition.
-            </h1>
-
-            <p class="hero-subtitle lang-pt">
-                Se já cria conteúdo mas não converte em vendas, a North Stack constrói a infraestrutura que falta: estratégia, repurposing e distribuição inteligente.
-            </p>
-            <p class="hero-subtitle lang-en">
-                If you're creating content but not converting to sales, North Stack builds the missing infrastructure: strategy, repurposing, and intelligent distribution.
-            </p>
-
+            <h1 class="lang-pt">Transformamos o seu conteúdo em um <span>sistema previsível</span> de aquisição de clientes.</h1>
+            <h1 class="lang-en">We transform your content into a <span>predictable system</span> for client acquisition.</h1>
+            <p class="hero-subtitle lang-pt">Se já cria conteúdo mas não converte em vendas, a North Stack constrói a infraestrutura que falta: estratégia, repurposing e distribuição inteligente.</p>
+            <p class="hero-subtitle lang-en">If you're creating content but not converting to sales, North Stack builds the missing infrastructure: strategy, repurposing, and intelligent distribution.</p>
             <div class="cta-group">
-                <a href="#contact" class="btn-primary lang-pt">
-                    Agendar Auditoria Gratuita →
-                </a>
-                <a href="#contact" class="btn-primary lang-en">
-                    Book Free Audit →
-                </a>
+                <a href="#contact" class="btn-primary lang-pt">Agendar Auditoria Gratuita →</a>
+                <a href="#contact" class="btn-primary lang-en">Book Free Audit →</a>
                 <a href="#como-funciona" class="btn-secondary lang-pt">Ver Como Funciona</a>
                 <a href="#como-funciona" class="btn-secondary lang-en">See How it Works</a>
             </div>
-
             <div class="social-proof">
                 <div class="avatars">
                     <div class="avatar">JF</div>
                     <div class="avatar">MP</div>
                     <div class="avatar">AC</div>
-                    <div class="avatar" style="background: var(--accent); color: var(--primary);">+8</div>
+                    <div class="avatar" style="background:var(--accent);color:var(--primary)">+8</div>
                 </div>
                 <span class="lang-pt">Junte-se a criadores que pararam de depender do algoritmo</span>
                 <span class="lang-en">Join creators who stopped relying on the algorithm</span>
             </div>
         </div>
     </section>
-
-    <!-- Problem Section -->
     <section id="problema" class="section">
         <div class="container">
             <div class="section-header fade-in">
@@ -1125,10 +172,9 @@
                 <span class="section-tag lang-en">The Problem</span>
                 <h2 class="section-title lang-pt">Criar conteúdo não é o problema.</h2>
                 <h2 class="section-title lang-en">Creating content isn't the problem.</h2>
-                <p class="lang-pt" style="color: var(--text-muted); font-size: 1.2rem;">O problema é a falta de sistema.</p>
-                <p class="lang-en" style="color: var(--text-muted); font-size: 1.2rem;">The problem is the lack of system.</p>
+                <p class="lang-pt" style="color:var(--text-muted);font-size:1.2rem">O problema é a falta de sistema.</p>
+                <p class="lang-en" style="color:var(--text-muted);font-size:1.2rem">The problem is the lack of system.</p>
             </div>
-
             <div class="problem-grid">
                 <div class="problem-card fade-in">
                     <div class="problem-icon">📉</div>
@@ -1137,7 +183,6 @@
                     <p class="lang-pt">Publica conteúdo excelente que ninguém vê porque falta uma estratégia de distribuição multi-plataforma.</p>
                     <p class="lang-en">You publish excellent content that nobody sees because it lacks a multi-platform distribution strategy.</p>
                 </div>
-
                 <div class="problem-card fade-in">
                     <div class="problem-icon">⏰</div>
                     <h3 class="lang-pt">Falta de Consistência</h3>
@@ -1145,7 +190,6 @@
                     <p class="lang-pt">Picos de produtividade seguidos de semanas de silêncio. Sem sistema, não há consistência.</p>
                     <p class="lang-en">Peaks of productivity followed by weeks of silence. Without a system, there is no consistency.</p>
                 </div>
-
                 <div class="problem-card fade-in">
                     <div class="problem-icon">🔄</div>
                     <h3 class="lang-pt">Falta de Estrutura</h3>
@@ -1153,7 +197,6 @@
                     <p class="lang-pt">Conteúdo criado sem objetivo claro de conversão. Cada post deve ser um ativo estratégico.</p>
                     <p class="lang-en">Content created without a clear conversion objective. Every post should be a strategic asset.</p>
                 </div>
-
                 <div class="problem-card fade-in">
                     <div class="problem-icon">🎲</div>
                     <h3 class="lang-pt">Conteúdo sem Sistema</h3>
@@ -1164,27 +207,16 @@
             </div>
         </div>
     </section>
-
-    <!-- Solution Section -->
     <section id="solucao" class="section solution">
         <div class="container">
             <div class="solution-content">
                 <div class="solution-text fade-in">
                     <span class="section-tag lang-pt">A Solução</span>
                     <span class="section-tag lang-en">The Solution</span>
-                    <h2 class="lang-pt">
-                        North Stack – <span>Content Growth Systems</span>
-                    </h2>
-                    <h2 class="lang-en">
-                        North Stack – <span>Content Growth Systems</span>
-                    </h2>
-                    <p class="lang-pt" style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">
-                        Não editamos vídeos. Construímos stacks de crescimento.
-                    </p>
-                    <p class="lang-en" style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px;">
-                        We don't just edit videos. We build growth stacks.
-                    </p>
-
+                    <h2 class="lang-pt">North Stack – <span>Content Growth Systems</span></h2>
+                    <h2 class="lang-en">North Stack – <span>Content Growth Systems</span></h2>
+                    <p class="lang-pt" style="color:var(--text-muted);font-size:1.1rem;margin-bottom:30px">Não editamos vídeos. Construímos stacks de crescimento.</p>
+                    <p class="lang-en" style="color:var(--text-muted);font-size:1.1rem;margin-bottom:30px">We don't just edit videos. We build growth stacks.</p>
                     <ul class="solution-list lang-pt">
                         <li>15–30 micro conteúdos a partir de 1 vídeo longo</li>
                         <li>Reels com hooks validados para máximo engajamento</li>
@@ -1197,7 +229,6 @@
                         <li>Content optimized for organic reach</li>
                         <li>Predictable and scalable growth structure</li>
                     </ul>
-
                     <div class="highlight-box lang-pt">
                         <strong>Infraestrutura > Publicações isoladas</strong>
                         Construímos sistemas que trabalham para si 24/7, não apenas gestão de redes sociais.
@@ -1207,7 +238,6 @@
                         We build systems that work for you 24/7, not just social media management.
                     </div>
                 </div>
-
                 <div class="solution-visual fade-in">
                     <div class="stack-visual">
                         <div class="stack-item">
@@ -1215,8 +245,8 @@
                             <div>
                                 <strong class="lang-pt">Estratégia</strong>
                                 <strong class="lang-en">Strategy</strong>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-pt">Diagnóstico e planeamento</div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-en">Diagnosis and planning</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-pt">Diagnóstico e planeamento</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-en">Diagnosis and planning</div>
                             </div>
                         </div>
                         <div class="stack-item">
@@ -1224,8 +254,8 @@
                             <div>
                                 <strong class="lang-pt">Repurposing</strong>
                                 <strong class="lang-en">Repurposing</strong>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-pt">1 vídeo → 30 ativos</div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-en">1 video → 30 assets</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-pt">1 vídeo → 30 ativos</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-en">1 video → 30 assets</div>
                             </div>
                         </div>
                         <div class="stack-item">
@@ -1233,8 +263,8 @@
                             <div>
                                 <strong class="lang-pt">Distribuição</strong>
                                 <strong class="lang-en">Distribution</strong>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-pt">Multi-plataforma inteligente</div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-en">Smart multi-platform</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-pt">Multi-plataforma inteligente</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-en">Smart multi-platform</div>
                             </div>
                         </div>
                         <div class="stack-item">
@@ -1242,8 +272,8 @@
                             <div>
                                 <strong class="lang-pt">Otimização</strong>
                                 <strong class="lang-en">Optimization</strong>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-pt">Dados e ajustes contínuos</div>
-                                <div style="font-size: 0.9rem; color: var(--text-muted);" class="lang-en">Data and continuous adjustments</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-pt">Dados e ajustes contínuos</div>
+                                <div style="font-size:0.9rem;color:var(--text-muted)" class="lang-en">Data and continuous adjustments</div>
                             </div>
                         </div>
                     </div>
@@ -1251,8 +281,6 @@
             </div>
         </div>
     </section>
-
-    <!-- How it Works -->
     <section id="como-funciona" class="section">
         <div class="container">
             <div class="section-header fade-in">
@@ -1261,7 +289,6 @@
                 <h2 class="section-title lang-pt">Como Funciona</h2>
                 <h2 class="section-title lang-en">How it Works</h2>
             </div>
-
             <div class="process">
                 <div class="process-step fade-in">
                     <div class="step-number">1</div>
@@ -1270,7 +297,6 @@
                     <p class="lang-pt">Análise profunda do seu conteúdo atual, público-alvo e oportunidades de crescimento.</p>
                     <p class="lang-en">Deep analysis of your current content, target audience, and growth opportunities.</p>
                 </div>
-
                 <div class="process-step fade-in">
                     <div class="step-number">2</div>
                     <h4 class="lang-pt">Planeamento de Conteúdo</h4>
@@ -1278,7 +304,6 @@
                     <p class="lang-pt">Estratégia mensal com hooks validados e calendário editorial otimizado.</p>
                     <p class="lang-en">Monthly strategy with validated hooks and optimized editorial calendar.</p>
                 </div>
-
                 <div class="process-step fade-in">
                     <div class="step-number">3</div>
                     <h4 class="lang-pt">Repurposing Profissional</h4>
@@ -1286,7 +311,6 @@
                     <p class="lang-pt">Transformação do seu conteúdo longo em dezenas de micro-conteúdos estratégicos.</p>
                     <p class="lang-en">Transforming your long content into dozens of strategic micro-content pieces.</p>
                 </div>
-
                 <div class="process-step fade-in">
                     <div class="step-number">4</div>
                     <h4 class="lang-pt">Distribuição Inteligente</h4>
@@ -1294,7 +318,6 @@
                     <p class="lang-pt">Publicação otimizada em todas as plataformas relevantes para o seu nicho.</p>
                     <p class="lang-en">Optimized publishing across all platforms relevant to your niche.</p>
                 </div>
-
                 <div class="process-step fade-in">
                     <div class="step-number">5</div>
                     <h4 class="lang-pt">Otimização Contínua</h4>
@@ -1305,66 +328,29 @@
             </div>
         </div>
     </section>
-
-    <!-- Offer Section -->
     <section id="oferta" class="section offer">
         <div class="container">
             <div class="offer-card fade-in">
                 <div class="offer-badge lang-pt">OFERTA FUNDADOR</div>
                 <div class="offer-badge lang-en">FOUNDER OFFER</div>
-                
                 <h2 class="lang-pt">🎯 Oferta Fundadora</h2>
                 <h2 class="lang-en">🎯 Founder Offer</h2>
-                
                 <p class="offer-subtitle lang-pt">Apenas 10 vagas exclusivas para criadores em Portugal</p>
                 <p class="offer-subtitle lang-en">Only 10 exclusive spots for creators in Portugal</p>
-
                 <div class="offer-features lang-pt">
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>20 Reels/mês profissionais</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Estratégia de hooks validados</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Planeamento mensal completo</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Relatório de crescimento semanal</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Reunião estratégica quinzenal</span>
-                    </div>
+                    <div class="offer-feature"><span class="check">✓</span><span>20 Reels/mês profissionais</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Estratégia de hooks validados</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Planeamento mensal completo</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Relatório de crescimento semanal</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Reunião estratégica quinzenal</span></div>
                 </div>
-
                 <div class="offer-features lang-en">
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>20 Professional Reels/month</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Validated hook strategy</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Complete monthly planning</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Weekly growth report</span>
-                    </div>
-                    <div class="offer-feature">
-                        <span class="check">✓</span>
-                        <span>Bi-weekly strategic meeting</span>
-                    </div>
+                    <div class="offer-feature"><span class="check">✓</span><span>20 Professional Reels/month</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Validated hook strategy</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Complete monthly planning</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Weekly growth report</span></div>
+                    <div class="offer-feature"><span class="check">✓</span><span>Bi-weekly strategic meeting</span></div>
                 </div>
-
                 <div class="guarantee">
                     <div class="guarantee-icon">🛡️</div>
                     <div class="guarantee-text">
@@ -1374,18 +360,11 @@
                         <p class="lang-en">If after 60 days there's no clear growth in reach and consistency, we work for free until we adjust the system.</p>
                     </div>
                 </div>
-
-                <a href="#contact" class="btn-primary cta-large lang-pt" style="margin-top: 40px;">
-                    Quero Construir o Meu Stack de Crescimento →
-                </a>
-                <a href="#contact" class="btn-primary cta-large lang-en" style="margin-top: 40px;">
-                    I Want to Build My Growth Stack →
-                </a>
+                <a href="#contact" class="btn-primary cta-large lang-pt" style="margin-top:40px">Quero Construir o Meu Stack de Crescimento →</a>
+                <a href="#contact" class="btn-primary cta-large lang-en" style="margin-top:40px">I Want to Build My Growth Stack →</a>
             </div>
         </div>
     </section>
-
-    <!-- Pricing Section -->
     <section id="precos" class="section">
         <div class="container">
             <div class="section-header fade-in">
@@ -1393,10 +372,9 @@
                 <span class="section-tag lang-en">Investment</span>
                 <h2 class="section-title lang-pt">Planos de Crescimento</h2>
                 <h2 class="section-title lang-en">Growth Plans</h2>
-                <p style="color: var(--accent); margin-top: 15px; font-weight: 600;" class="lang-pt">⚡ Preço Fundador: 20% de desconto vitalício para os primeiros 10 clientes</p>
-                <p style="color: var(--accent); margin-top: 15px; font-weight: 600;" class="lang-en">⚡ Founder Price: 20% lifetime discount for the first 10 clients</p>
+                <p style="color:var(--accent);margin-top:15px;font-weight:600" class="lang-pt">⚡ Preço Fundador: 20% de desconto vitalício para os primeiros 10 clientes</p>
+                <p style="color:var(--accent);margin-top:15px;font-weight:600" class="lang-en">⚡ Founder Price: 20% lifetime discount for the first 10 clients</p>
             </div>
-
             <div class="pricing-grid">
                 <div class="pricing-card fade-in">
                     <h3 class="pricing-name">Starter Stack</h3>
@@ -1415,10 +393,9 @@
                         <li class="lang-pt">Otimização de perfil</li>
                         <li class="lang-en">Profile optimization</li>
                     </ul>
-                    <a href="#contact" class="btn-secondary lang-pt" style="width: 100%; text-align: center; display: block;">Começar Agora</a>
-                    <a href="#contact" class="btn-secondary lang-en" style="width: 100%; text-align: center; display: block;">Start Now</a>
+                    <a href="#contact" class="btn-secondary lang-pt" style="width:100%;text-align:center;display:block">Começar Agora</a>
+                    <a href="#contact" class="btn-secondary lang-en" style="width:100%;text-align:center;display:block">Start Now</a>
                 </div>
-
                 <div class="pricing-card featured fade-in">
                     <h3 class="pricing-name">Growth Stack</h3>
                     <p class="pricing-desc lang-pt">Para criadores sérios sobre escalagem</p>
@@ -1438,10 +415,9 @@
                         <li class="lang-pt">Distribuição multi-plataforma</li>
                         <li class="lang-en">Multi-platform distribution</li>
                     </ul>
-                    <a href="#contact" class="btn-primary lang-pt" style="width: 100%; text-align: center; display: block;">Escolher Growth</a>
-                    <a href="#contact" class="btn-primary lang-en" style="width: 100%; text-align: center; display: block;">Choose Growth</a>
+                    <a href="#contact" class="btn-primary lang-pt" style="width:100%;text-align:center;display:block">Escolher Growth</a>
+                    <a href="#contact" class="btn-primary lang-en" style="width:100%;text-align:center;display:block">Choose Growth</a>
                 </div>
-
                 <div class="pricing-card fade-in">
                     <h3 class="pricing-name">Authority Stack</h3>
                     <p class="pricing-desc lang-pt">Para líderes de mercado que querem dominar</p>
@@ -1461,44 +437,29 @@
                         <li class="lang-pt">Suporte prioritário</li>
                         <li class="lang-en">Priority support</li>
                     </ul>
-                    <a href="#contact" class="btn-secondary lang-pt" style="width: 100%; text-align: center; display: block;">Falar com Equipa</a>
-                    <a href="#contact" class="btn-secondary lang-en" style="width: 100%; text-align: center; display: block;">Talk to Team</a>
+                    <a href="#contact" class="btn-secondary lang-pt" style="width:100%;text-align:center;display:block">Falar com Equipa</a>
+                    <a href="#contact" class="btn-secondary lang-en" style="width:100%;text-align:center;display:block">Talk to Team</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Final CTA -->
     <section id="contact" class="section cta-section">
         <div class="cta-content fade-in">
             <h2 class="lang-pt">Pronto para deixar de depender da sorte?</h2>
             <h2 class="lang-en">Ready to stop relying on luck?</h2>
             <p class="lang-pt">Agende uma Auditoria Estratégica Gratuita e descubra como transformar o seu conteúdo num sistema de aquisição de clientes.</p>
             <p class="lang-en">Book a Free Strategic Audit and discover how to transform your content into a client acquisition system.</p>
-            
-            <a href="mailto:hello@northstack.pt?subject=Auditoria%20Estratégica%20Gratuita" class="btn-primary cta-large lang-pt">
-                Agendar Auditoria Gratuita →
-            </a>
-            <a href="mailto:hello@northstack.pt?subject=Free%20Strategic%20Audit" class="btn-primary cta-large lang-en">
-                Book Free Audit →
-            </a>
-
-            <p style="margin-top: 30px; color: var(--text-muted); font-size: 0.9rem;" class="lang-pt">
-                Resposta em até 24 horas • Vagas limitadas
-            </p>
-            <p style="margin-top: 30px; color: var(--text-muted); font-size: 0.9rem;" class="lang-en">
-                Response within 24 hours • Limited spots
-            </p>
+            <a href="mailto:hello@northstack.pt?subject=Auditoria%20Estratégica%20Gratuita" class="btn-primary cta-large lang-pt">Agendar Auditoria Gratuita →</a>
+            <a href="mailto:hello@northstack.pt?subject=Free%20Strategic%20Audit" class="btn-primary cta-large lang-en">Book Free Audit →</a>
+            <p style="margin-top:30px;color:var(--text-muted);font-size:0.9rem" class="lang-pt">Resposta em até 24 horas • Vagas limitadas</p>
+            <p style="margin-top:30px;color:var(--text-muted);font-size:0.9rem" class="lang-en">Response within 24 hours • Limited spots</p>
         </div>
     </section>
-
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">◆ North Stack</div>
             <p class="footer-tagline lang-pt">Infraestrutura de crescimento baseada em conteúdo</p>
             <p class="footer-tagline lang-en">Content-based growth infrastructure</p>
-            
             <div class="footer-links">
                 <a href="mailto:hello@northstack.pt">hello@northstack.pt</a>
                 <a href="#" class="lang-pt">LinkedIn</a>
@@ -1506,104 +467,19 @@
                 <a href="#" class="lang-pt">Instagram</a>
                 <a href="#" class="lang-en">Instagram</a>
             </div>
-
             <div class="copyright">
                 <p class="lang-pt">© 2024 North Stack. Todos os direitos reservados. Portugal</p>
                 <p class="lang-en">© 2024 North Stack. All rights reserved. Portugal</p>
             </div>
         </div>
     </footer>
-
     <script>
-        // Language Toggle
-        function setLanguage(lang) {
-            document.body.setAttribute('data-lang', lang);
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            localStorage.setItem('preferred-lang', lang);
-            
-            // Update HTML lang attribute for SEO/accessibility
-            document.documentElement.lang = lang === 'pt' ? 'pt' : 'en';
-        }
-
-        // Check saved preference
-        const savedLang = localStorage.getItem('preferred-lang');
-        if (savedLang) {
-            document.body.setAttribute('data-lang', savedLang);
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.toLowerCase() === savedLang) {
-                    btn.classList.add('active');
-                }
-            });
-            document.documentElement.lang = savedLang === 'pt' ? 'pt' : 'en';
-        }
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        let lastScroll = 0;
-        
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Mobile menu toggle (basic)
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '70px';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.background = 'rgba(10,10,10,0.95)';
-            navLinks.style.padding = '20px';
-            navLinks.style.backdropFilter = 'blur(10px)';
-        });
+        function setLanguage(lang){document.body.setAttribute('data-lang',lang);document.querySelectorAll('.lang-btn').forEach(btn=>{btn.classList.remove('active')});event.target.classList.add('active');localStorage.setItem('preferred-lang',lang);document.documentElement.lang=lang==='pt'?'pt':'en'}
+        const savedLang=localStorage.getItem('preferred-lang');if(savedLang){document.body.setAttribute('data-lang',savedLang);document.querySelectorAll('.lang-btn').forEach(btn=>{btn.classList.remove('active');if(btn.textContent.toLowerCase()===savedLang){btn.classList.add('active')}});document.documentElement.lang=savedLang==='pt'?'pt':'en'}
+        const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible')}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.fade-in').forEach(el=>{observer.observe(el)});
+        document.querySelectorAll('a[href^="#"]').forEach(anchor=>{anchor.addEventListener('click',function(e){e.preventDefault();const target=document.querySelector(this.getAttribute('href'));if(target){target.scrollIntoView({behavior:'smooth',block:'start'})}})});
+        const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{if(window.pageYOffset>100){navbar.classList.add('scrolled')}else{navbar.classList.remove('scrolled')}});
+        function toggleMenu(){const navLinks=document.querySelector('.nav-links');if(navLinks.style.display==='flex'){navLinks.style.display='none'}else{navLinks.style.display='flex';navLinks.style.position='absolute';navLinks.style.top='70px';navLinks.style.left='0';navLinks.style.right='0';navLinks.style.flexDirection='column';navLinks.style.background='rgba(10,10,10,0.95)';navLinks.style.padding='20px';navLinks.style.backdropFilter='blur(10px)'}}
     </script>
 </body>
 </html>
